@@ -19,12 +19,11 @@ Route::get( '/', function () {
 	return view( 'accueil' )->with( 'texte', $nom );
 } );
 
-
 Route::get( '/contact', 'ContactsController@index' );
-Route::get( '/contact/{contact}', 'ContactsController@show' );
-
-//TODO: not working like this
+//Route::get( '/contact/{contact}', 'ContactsController@show' );
 Route::get( '/contact/delete/{contact}', 'ContactsController@delete')->name('delete');
+Route::put( '/contact/add', 'ContactsController@add')->name('add');
+Route::put( '/contact/update/{contact}', 'ContactsController@update')->name('update');
 
 /**
  * ************************************Code examples**************************************

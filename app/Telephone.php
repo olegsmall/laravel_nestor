@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Telephone extends Model
 {
 	public $timestaps = false;
+    protected $primaryKey = 'tel_id';
 	/**
 	 * Get the contact that owns the phone number.
 	 */

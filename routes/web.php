@@ -63,11 +63,9 @@ Route::get( '/contact', function () {
 
 Route::get( '/contact/{id}', function ( $id ) {
 //    $contact = Contact::all('*')->firstWhere('ctc_id', $id);
-	$editContactId = $id;
-	$contacts      = Contact::all( '*' );
-
-	return view( 'contact.tout' )
-		->with( 'contact', $contacts );
+	$contact = Contact::find( $id );
+//	dd( $contact );
+	return view( 'contact.un', compact( 'contact' ) );
 } );
 
 //TODO: not working like this
@@ -89,16 +87,49 @@ Route::get( '/example_multiple_variables', function () {
 
 	$name = 'Jack';
 	$age  = 3;
+
 	return view( 'welcome', [
 		'name' => $name,
 		'age'  => $age
 	] );
 
-    return view('welcome', compact('name', 'age'));
+	return view( 'welcome', compact( 'name', 'age' ) );
 
-	
 
 	//Single variable
 	return view( 'welcome' )->with( 'name', 'World' );
 } );
 
+
+/**
+ * ******************* QueryBuilder Examples*******************
+ */
+Route::get( '/queryBuilderEcamples/{task}', function ( $id ) {
+
+	// damp and die
+	dd( $id );
+
+	$tasks = DB::table( 'tasks' )->get();
+	$tasks = DB::table( 'tasks' )->where( 'created_at', ">=" )->get();
+	$tasks = DB::table( 'tasks' )->latest()->get();
+	$task  = DB::table( 'tasks' )->fine( $id );
+	dd( $task );
+
+	return redirect( '/contact' );
+} );
+
+
+/**
+ * ********************* Eloquent Model Examples ***********************
+ */
+Route::get( '/eloquent_Model_Examples/{task}', function ( $id ) {
+
+	$contacts = Contact::all();
+	$contacts = Contact::all()->first();
+	$contacts = Contact::where( 'id', '>=', 2 )->get();
+	//fetching only one column
+	$contacts = Contact::pluck( 'nom' );
+	$contact  = Contact::find( $id );
+
+	return redirect( '/contact' );
+} );

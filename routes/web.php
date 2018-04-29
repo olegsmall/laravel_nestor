@@ -67,19 +67,18 @@ Route::get( '/contact/{id}', function ( $id ) {
 	$contacts      = Contact::all( '*' );
 
 	return view( 'contact.tout' )
-		->with( 'contact', $contacts )
-		->with( 'editContactId', $editContactId );
+		->with( 'contact', $contacts );
 } );
 
 //TODO: not working like this
-Route::get( '/contact/{id}/delete', function ( $id ) {
+Route::get( '/contact/delete/{id}', function ( $id ) {
 
 //	Contact::destroy($id);
 	return redirect( '/contact' );
 } );
 
 /**
- * Code examples
+ * ************************************Code examples**************************************
  */
 Route::get( '/example_multiple_variables', function () {
 	//multiple variables as array in view function
@@ -94,6 +93,8 @@ Route::get( '/example_multiple_variables', function () {
 		'name' => $name,
 		'age'  => $age
 	] );
+
+    return view('welcome', compact('name', 'age'));
 
 	
 

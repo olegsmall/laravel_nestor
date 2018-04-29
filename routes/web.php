@@ -16,64 +16,15 @@ use App\Contact;
 
 Route::get( '/', function () {
 	$nom = "World";
-
-//    return view('accueil', ['texte' => $nom]);
 	return view( 'accueil' )->with( 'texte', $nom );
 } );
 
-//// Utilise QueryBuilder
-//Route::get('/tache', function (){
-//
-//	//Query Builder
-//	$taches = DB::table('tache')->where('accomplie', 1)->get();
-//
-//	return view( 'tache.tout' )->with('taches', $taches);
-//});
 
-//// Utilise QueryBuilder
-//Route::get('/tache/{id}', function ($id){
-//
-//	//Query Builder
-//	$taches = DB::table('tache')->where('accomplie', 1)->get();
-//
-//	return view( 'tache.un' )->with('texte', DB::table('tache')->find($id)->texte);
-//});
-
-//// Utilise Eloquent Model
-//Route::get('/tache/{tache}', function (App\Tache $tache){
-//		return view( 'tache.un' )->with('tache', $tache);
-//});
-//
-//// Utilise QueryBuilder
-//Route::get('/tache', function (){
-//
-//	//$taches = App\Tache::all();
-////	$taches = App\Tache::all(['id', 'texte']);
-//	$taches = Tache::all(['ctc_id', 'texte']);
-//
-//	return view( 'tache.tout' )->with('taches', $taches);
-//});
-
-Route::get( '/contact', function () {
-	$contacts = Contact::all( '*' );
-
-	return view( 'contact.tout' )->with( 'contacts', $contacts );
-} );
-
-
-Route::get( '/contact/{id}', function ( $id ) {
-//    $contact = Contact::all('*')->firstWhere('ctc_id', $id);
-	$contact = Contact::find( $id );
-//	dd( $contact );
-	return view( 'contact.un', compact( 'contact' ) );
-} );
+Route::get( '/contact', 'ContactsController@index' );
+Route::get( '/contact/{contact}', 'ContactsController@show' );
 
 //TODO: not working like this
-Route::get( '/contact/delete/{id}', function ( $id ) {
-
-//	Contact::destroy($id);
-	return redirect( '/contact' );
-} );
+Route::get( '/contact/delete/{contact}', 'ContactsController@delete')->name('delete');
 
 /**
  * ************************************Code examples**************************************
@@ -130,6 +81,7 @@ Route::get( '/eloquent_Model_Examples/{task}', function ( $id ) {
 	//fetching only one column
 	$contacts = Contact::pluck( 'nom' );
 	$contact  = Contact::find( $id );
+	//    $contact = Contact::all()->firstWhere('ctc_id', $id);
 
 	return redirect( '/contact' );
 } );

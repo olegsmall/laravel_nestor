@@ -8,6 +8,7 @@ class Contact extends Model
 {
 //    protected $table = 'contacts';
     public $timestaps = false;
+	protected $primaryKey = 'ctc_id';
 
 	/**
 	 * Get the comments for the blog post.

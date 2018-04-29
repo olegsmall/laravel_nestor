@@ -53,7 +53,6 @@ Route::get('/', function () {
 
 Route::get('/contact', function () {
     $contacts = Contact::all( '*');
-
     return view('contact.tout')->with('contacts', $contacts);
 });
 
@@ -66,6 +65,13 @@ Route::get('/contact/{id}', function ($id){
     return view('contact.tout')
         ->with('contact', $contacts)
         ->with('editContactId', $editContactId);
+});
+
+//TODO: not working like this
+Route::get('/contact/{id}/delete', function ($id){
+
+//	Contact::destroy($id);
+	return redirect('/contact');
 });
 
 

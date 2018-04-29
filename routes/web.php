@@ -1,6 +1,8 @@
 <?php
+
 use App\Tache;
 use App\Contact;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,11 +14,12 @@ use App\Contact;
 |
 */
 
-Route::get('/', function () {
+Route::get( '/', function () {
 	$nom = "World";
+
 //    return view('accueil', ['texte' => $nom]);
-    return view('accueil')->with('texte', $nom);
-});
+	return view( 'accueil' )->with( 'texte', $nom );
+} );
 
 //// Utilise QueryBuilder
 //Route::get('/tache', function (){
@@ -51,27 +54,50 @@ Route::get('/', function () {
 //	return view( 'tache.tout' )->with('taches', $taches);
 //});
 
-Route::get('/contact', function () {
-    $contacts = Contact::all( '*');
-    return view('contact.tout')->with('contacts', $contacts);
-});
+Route::get( '/contact', function () {
+	$contacts = Contact::all( '*' );
+
+	return view( 'contact.tout' )->with( 'contacts', $contacts );
+} );
 
 
-
-Route::get('/contact/{id}', function ($id){
+Route::get( '/contact/{id}', function ( $id ) {
 //    $contact = Contact::all('*')->firstWhere('ctc_id', $id);
-    $editContactId = $id;
-    $contacts = Contact::all( '*');
-    return view('contact.tout')
-        ->with('contact', $contacts)
-        ->with('editContactId', $editContactId);
-});
+	$editContactId = $id;
+	$contacts      = Contact::all( '*' );
+
+	return view( 'contact.tout' )
+		->with( 'contact', $contacts )
+		->with( 'editContactId', $editContactId );
+} );
 
 //TODO: not working like this
-Route::get('/contact/{id}/delete', function ($id){
+Route::get( '/contact/{id}/delete', function ( $id ) {
 
 //	Contact::destroy($id);
-	return redirect('/contact');
-});
+	return redirect( '/contact' );
+} );
 
+/**
+ * Code examples
+ */
+Route::get( '/example_multiple_variables', function () {
+	//multiple variables as array in view function
+	return view( 'welcome', [
+		'name' => 'Laracasts',
+		'age'  => 3
+	] );
+
+	$name = 'Jack';
+	$age  = 3;
+	return view( 'welcome', [
+		'name' => $name,
+		'age'  => $age
+	] );
+
+	
+
+	//Single variable
+	return view( 'welcome' )->with( 'name', 'World' );
+} );
 

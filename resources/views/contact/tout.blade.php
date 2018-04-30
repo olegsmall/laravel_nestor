@@ -38,6 +38,11 @@
                 </select>
             </label>
         </div>
+        <div class="container text-right mb-4">
+            <button type="submit" class="btn col-2">Soumettre
+                {{--<i class="fas fa-check"></i>--}}
+            </button>
+        </div>
     </form>
 {{--    {{$editContactId}}--}}
 

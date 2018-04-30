@@ -30,19 +30,22 @@ class ContactsController extends Controller {
     }
 
 
-
+    /**
+     * Ajout d'un contact dans la BD
+     * @return redirection sur la page des contacts
+     */
+    
     public function add(Contact $contact) {
 
-$contact = new Contact;
+        $contact = new Contact;
         $contact->ctc_prenom = request('prenom');
         $contact->ctc_nom = request('nom');
         $contact->ctc_categorie = request('categorie');
         $contact->ctc_uti_id_ce = 1;
 
-        $contact->save();
+        $contact->save(); // Ajout du contact
 
-        // Recevoir id du contact ajoute dernierement
-        $contact->ctc_id;
+        $contact->ctc_id; // Recevoir id du contact ajoute dernierement
         return redirect("/contact");
     }
 

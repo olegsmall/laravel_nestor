@@ -21,18 +21,30 @@
         <h3 class="card-body">Ajout d'un contact</h3>
         <div class="form-group d-flex flex-row nowrap justify-content-between">
             <label class="col-md-6">Prenom
-                <input class="form-control" type="text" name="prenom" placeholder="Prenom">
+                <input class="form-control" type="text" name="prenom" placeholder="Prenom" value="Test">
             </label>
             <label class="col-md-6">Nom
-                <input class="form-control" type="text" name="nom" placeholder="Nom">
+                <input class="form-control" type="text" name="nom" placeholder="Nom" value="test">
             </label>
         </div>
         <div class="form-group d-flex flex-row nowrap justify-content-between">
             <label class="col-md-8">Numero de téléphone:
-                <input class="form-control" type="text" name="tel" placeholder="Numero de téléphone">
+                <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" value="111111">
             </label>
             <label class="col-md-4">Categorie:
-                <select class="form-control"  name="categorie">
+                <select class="form-control"  name="categorie[]">
+                    @foreach($contactCategories as $categorie)
+                        <option value="{{$categorie}}">{{$categorie}}</option>
+                    @endforeach
+                </select>
+            </label>
+        </div>
+        <div class="form-group d-flex flex-row nowrap justify-content-between">
+            <label class="col-md-8">Numero de téléphone:
+                <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" value="2222">
+            </label>
+            <label class="col-md-4">Categorie:
+                <select class="form-control"  name="categorie[]">
                     @foreach($contactCategories as $categorie)
                         <option value="{{$categorie}}">{{$categorie}}</option>
                     @endforeach

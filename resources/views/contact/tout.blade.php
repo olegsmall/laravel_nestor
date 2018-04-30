@@ -14,7 +14,31 @@
 <div class="container">
 {{--Allo {{$taches}}--}}
 
+
 <div>
+    <form class="card mb-3 mt-3" method="post" action="">
+        <h3 class="card-body">Ajout d'un contact</h3>
+        <div class="form-group d-flex flex-row nowrap justify-content-between">
+            <label class="col-md-6">Nom
+                <input class="form-control" type="text" name="prenom" placeholder="Prenom">
+            </label>
+            <label class="col-md-6">Prenom
+                <input class="form-control" type="text" name="nom" placeholder="Nom">
+            </label>
+        </div>
+        <div class="form-group d-flex flex-row nowrap justify-content-between">
+            <label class="col-md-8">Numero de téléphone:
+                <input class="form-control" type="text" name="tel" placeholder="Numero de téléphone">
+            </label>
+            <label class="col-md-4">Categorie:
+                <select class="form-control"  name="categorie">
+                    @foreach($contactCategories as $categorie)
+                        <option value="{{$categorie}}">{{$categorie}}</option>
+                    @endforeach
+                </select>
+            </label>
+        </div>
+    </form>
 {{--    {{$editContactId}}--}}
 
     @foreach ($contacts as $contact)

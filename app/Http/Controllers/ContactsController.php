@@ -8,8 +8,8 @@ use App\Telephone;
 class ContactsController extends Controller {
 	public function index() {
 		$contacts = Contact::all();
-
-		return view( 'contact.tout', compact( 'contacts' ) );
+        $contactCategories = Contact::getValeursEnum('contacts', 'ctc_categorie');
+		return view( 'contact.tout', compact( 'contacts', 'contactCategories' ) );
 	}
 
 //	public function show( Contact $contact ) { //Contact::find(wildcard);

@@ -43,11 +43,11 @@ class Contact extends Model
         $contact = new Contact();
         $contact->ctc_prenom = request('prenom');
         $contact->ctc_nom = request('nom');
-        $contact->ctc_categorie = request('categorie');
+        $contact->ctc_categorie = request('contact-category');
         $contact->ctc_uti_id_ce = 1;
 
 //        dd($contact);
-//        $contact->save(); // Ajout du contact
+        $contact->save(); // Ajout du contact
 
         $contact->ctc_id; // Recevoir id du contact ajoute dernierement
         $contact->addTelephone();
@@ -64,9 +64,10 @@ class Contact extends Model
 //        ]);
         $telObj = new Telephone();
         $telObj->tel_numero = request('tel');
-        $telObj->tel_type = request('categorie');
-//        $telObj->tel_poste = '';
-//        $telObj->tel_ctc_id_ce = $this->ctc_id;
+        $telObj->tel_type = request('telephone-category');
+        $telObj->tel_poste = request('post');
+        $telObj->tel_ctc_id_ce = $this->ctc_id;
+
 
         // Print form fields as array
 //        $numTel = [];
@@ -87,7 +88,7 @@ class Contact extends Model
 
 
 //        dd($telObj->attributes);
-//        $telObj->save();
+        $telObj->save();
     }
 
     public function deleteContact()

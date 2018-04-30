@@ -20,19 +20,14 @@
         {{ csrf_field() }}
         <h3 class="card-body">Ajout d'un contact</h3>
         <div class="form-group d-flex flex-row nowrap justify-content-between">
-            <label class="col-md-6">Prenom
+            <label class="col-4">Prenom
                 <input class="form-control" type="text" name="prenom" placeholder="Prenom" value="Test">
             </label>
-            <label class="col-md-6">Nom
+            <label class="col-4">Nom
                 <input class="form-control" type="text" name="nom" placeholder="Nom" value="test">
             </label>
-        </div>
-        <div class="form-group d-flex flex-row nowrap justify-content-between">
-            <label class="col-md-8">Numero de téléphone:
-                <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" value="111111">
-            </label>
-            <label class="col-md-4">Categorie:
-                <select class="form-control"  name="categorie[]">
+            <label class="col-4">Contact categorie:
+                <select class="form-control"  name="contact-category">
                     @foreach($contactCategories as $categorie)
                         <option value="{{$categorie}}">{{$categorie}}</option>
                     @endforeach
@@ -40,11 +35,29 @@
             </label>
         </div>
         <div class="form-group d-flex flex-row nowrap justify-content-between">
-            <label class="col-md-8">Numero de téléphone:
+            <label class="col-6">Numero de téléphone:
+                <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" value="111111">
+            </label>
+            <label class="col-3">Numero de post:
+                <input class="form-control" type="text" name="post[]" placeholder="Numero de post" value="123">
+            </label>
+            <label class="col-3">Telephone categorie:
+                <select class="form-control"  name="telephone-category[]">
+                    @foreach($contactCategories as $categorie)
+                        <option value="{{$categorie}}">{{$categorie}}</option>
+                    @endforeach
+                </select>
+            </label>
+        </div>
+        <div class="form-group d-flex flex-row nowrap justify-content-between">
+            <label class="col-6">Numero de téléphone:
                 <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" value="2222">
             </label>
-            <label class="col-md-4">Categorie:
-                <select class="form-control"  name="categorie[]">
+            <label class="col-3">Numero de post:
+                <input class="form-control" type="text" name="post[]" placeholder="Numero de post" value="">
+            </label>
+            <label class="col-3">Telephone categorie:
+                <select class="form-control"  name="telephone-category[]">
                     @foreach($contactCategories as $categorie)
                         <option value="{{$categorie}}">{{$categorie}}</option>
                     @endforeach

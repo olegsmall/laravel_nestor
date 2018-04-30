@@ -52,7 +52,7 @@
             <div class="card-body d-flex flex-row nowrap justify-content-between">
                 <div class="d-flex flex-row nowrap">
                     <a href="" class="card-link">edit</a>
-                    <a href="contact/{{$contact->ctc_id}}/delete" class="card-link">delete</a>
+                    <a href="contact/delete/{{$contact->ctc_id}}" class="card-link">delete</a>
                     <div class="ml-4">{{$contact->ctc_prenom}} {{$contact->ctc_nom}}</div>
                 </div>
                 <div>

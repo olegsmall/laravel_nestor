@@ -17,11 +17,9 @@ class ContactsController extends Controller {
 //		return view( 'contact.un', compact( 'contact' ) );
 //	}
 
-	public function delete( $contact ) {
-	    Telephone::destroy(Contact::find($contact)->telephones);
-		Contact::destroy($contact);
+	public function delete( Contact $contact ) {
+        $contact->deleteContact();
 		return redirect( '/contact' );
-//
 	}
 
 	public function update(Contact $contact) {
@@ -35,17 +33,9 @@ class ContactsController extends Controller {
      * @return redirection sur la page des contacts
      */
 
-    public function add(Contact $contact) {
+    public function add() {
+        Contact::addContact();
 
-        $contact = new Contact;
-        $contact->ctc_prenom = request('prenom');
-        $contact->ctc_nom = request('nom');
-        $contact->ctc_categorie = request('categorie');
-        $contact->ctc_uti_id_ce = 1;
-
-        $contact->save(); // Ajout du contact
-
-        $contact->ctc_id; // Recevoir id du contact ajoute dernierement
         return redirect("/contact");
     }
 

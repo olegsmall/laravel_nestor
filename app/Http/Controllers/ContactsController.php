@@ -34,7 +34,7 @@ class ContactsController extends Controller {
      * Ajout d'un contact dans la BD
      * @return redirection sur la page des contacts
      */
-    
+
     public function add(Contact $contact) {
 
         $contact = new Contact;

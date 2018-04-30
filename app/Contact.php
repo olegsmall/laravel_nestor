@@ -69,14 +69,22 @@ class Contact extends Model
 //        $telObj->tel_ctc_id_ce = $this->ctc_id;
 
         // Print form fields as array
-//        $numTel = [];
-//        foreach ($telObj->attributes as $champs => $champ) {
-//            var_dump($champ);
-//
-//            foreach($champ as $valeur) {
-//                var_dump($valeur);
-//            }
-//        }
+        $numTel = [];
+//        var_dump($telObj->attributes);
+
+        var_dump($telObj->attributes['tel_type']);
+        foreach ($telObj->attributes['tel_numero'] as $champ) {
+            $numTel[]['tel_numero'] = $champ;
+            foreach ($numTel as $champs => $valeur) {
+                echo $champs;
+                $valeur[] = $telObj->attributes['tel_type'][$champs];
+            }
+        }
+
+
+
+        var_dump($numTel);
+//        var_dump($numTel);
 
 //          Add multiple rows to table
 //        $telNum = array(
@@ -86,7 +94,7 @@ class Contact extends Model
 //        DB::table('telephones')->insert($telNum);
 
 
-//        dd($telObj->attributes);
+        dd($telObj->attributes);
 //        $telObj->save();
     }
 

@@ -22,8 +22,8 @@ Route::get( '/', function () {
 Route::get( '/contact', 'ContactsController@index' );
 //Route::get( '/contact/{contact}', 'ContactsController@show' );
 Route::get( '/contact/delete/{contact}', 'ContactsController@delete')->name('delete');
-Route::put( '/contact/add', 'ContactsController@add')->name('add');
-Route::put( '/contact/update/{contact}', 'ContactsController@update')->name('update');
+Route::post( '/contact/add', 'ContactsController@add')->name('add');
+Route::post( '/contact/update/{contact}', 'ContactsController@update')->name('update');
 
 /**
  * ************************************Code examples**************************************

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 class Contact extends Model
 {
 //    protected $table = 'contacts';
-    public $timestaps = false;
+    public $timestamps = false;
 	protected $primaryKey = 'ctc_id';
 
 	/**

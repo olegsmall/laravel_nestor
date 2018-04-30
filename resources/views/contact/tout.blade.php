@@ -16,13 +16,14 @@
 
 
 <div>
-    <form class="card mb-3 mt-3" method="post" action="">
+    <form class="card mb-3 mt-3" method="post" action="/contact/add">
+        {{ csrf_field() }}
         <h3 class="card-body">Ajout d'un contact</h3>
         <div class="form-group d-flex flex-row nowrap justify-content-between">
-            <label class="col-md-6">Nom
+            <label class="col-md-6">Prenom
                 <input class="form-control" type="text" name="prenom" placeholder="Prenom">
             </label>
-            <label class="col-md-6">Prenom
+            <label class="col-md-6">Nom
                 <input class="form-control" type="text" name="nom" placeholder="Nom">
             </label>
         </div>
@@ -40,7 +41,7 @@
         </div>
         <div class="container text-right mb-4">
             <button type="submit" class="btn col-2">Soumettre
-                {{--<i class="fas fa-check"></i>--}}
+                {{--<i class="fa fa-check" aria-hidden="true"></i>--}}
             </button>
         </div>
     </form>

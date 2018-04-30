@@ -29,10 +29,21 @@ class ContactsController extends Controller {
 //        $contact.save();
     }
 
-    public function add() {
 
 
+    public function add(Contact $contact) {
 
+$contact = new Contact;
+        $contact->ctc_prenom = request('prenom');
+        $contact->ctc_nom = request('nom');
+        $contact->ctc_categorie = request('categorie');
+        $contact->ctc_uti_id_ce = 1;
+
+        $contact->save();
+
+        // Recevoir id du contact ajoute dernierement
+        $contact->ctc_id;
+        return redirect("/contact");
     }
 
 }

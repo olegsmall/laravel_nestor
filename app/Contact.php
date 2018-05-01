@@ -41,15 +41,29 @@ class Contact extends Model
 
     public static function addContact(){
         $contact = new Contact();
-        $contact->ctc_prenom = request('prenom');
-        $contact->ctc_nom = request('nom');
-        $contact->ctc_categorie = request('contact-category');
-        $contact->ctc_uti_id_ce = 1;
+        $contact->updateContact();
+//        $contact->ctc_prenom = request('prenom');
+//        $contact->ctc_nom = request('nom');
+//        $contact->ctc_categorie = request('contact-category');
+//        $contact->ctc_uti_id_ce = 1;
+//
+//        $contact->save(); // Ajout du contact
+//
+//        $contact->addTelephone();
+    }
 
-        $contact->save(); // Ajout du contact
+    public function updateContact(){
+        $this->ctc_prenom = request('prenom');
+        $this->ctc_nom = request('nom');
+        $this->ctc_categorie = request('contact-category');
+        $this->ctc_uti_id_ce = 1;
 
-        $contact->ctc_id; // Recevoir id du contact ajoute dernierement
-        $contact->addTelephone();
+        $this->save(); // Ajout du contact
+
+        foreach ($this->telephones as $telephone) {
+            $telephone->delete();
+        }
+        $this->addTelephone();
     }
 
     public function addTelephone()

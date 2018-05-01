@@ -11,6 +11,12 @@ class Contact extends Model
 //    protected $table = 'contacts';
     public $timestamps = false;
     protected $primaryKey = 'ctc_id';
+    protected $attributes = [
+        'ctc_prenom' => '',
+        'ctc_nom' => '',
+        'ctc_categorie' => 'Famille',
+        'ctc_uti_id_ce' => 1
+    ];
 
     /**
      * Get the comments for the blog post.
@@ -39,17 +45,8 @@ class Contact extends Model
         return $valeurs;
     }
 
-    public static function addContact(){
-        $contact = new Contact();
-        $contact->updateContact();
-//        $contact->ctc_prenom = request('prenom');
-//        $contact->ctc_nom = request('nom');
-//        $contact->ctc_categorie = request('contact-category');
-//        $contact->ctc_uti_id_ce = 1;
-//
-//        $contact->save(); // Ajout du contact
-//
-//        $contact->addTelephone();
+    public function addContact($arContact){
+        $this->save($arContact);
     }
 
     public function updateContact(){

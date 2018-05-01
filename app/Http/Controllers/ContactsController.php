@@ -51,10 +51,23 @@ class ContactsController extends Controller {
      * @return redirection sur la page des contacts
      */
 
-    public function add() {
-        Contact::addContact();
+    public function add(Contact $contact) {
+
+        $contact->addContact($this->getContactFormData());
 
         return redirect("/contact");
     }
 
+    private function getContactFormData(){
+        return [
+            'ctc_prenom' => request('prenom'),
+            'ctc_nom' =>  request('nom'),
+            'ctc_categorie' => request('contact-category'),
+            'ctc_uti_id_ce' => 1
+        ];
+    }
+
+    private function getTelephonesFormData(){
+
+    }
 }

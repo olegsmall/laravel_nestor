@@ -1,16 +1,20 @@
-<!doctype html>
-<html lang="fr">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <script src="{{ URL(mix('/js/app.js')) }}"></script>
-    <link rel="stylesheet" href="{{URL(mix('css/app.css') )}}">
-    <title>Contacts : liste des contacts</title>
+@extends('layouts.app')
+{{--<!doctype html>--}}
+{{--<html lang="fr">--}}
+{{--<head>--}}
+    {{--<meta charset="utf-8">--}}
+    {{--<meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
+    {{--<meta name="viewport" content="width=device-width, initial-scale=1">--}}
+    {{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
+    {{--<script src="{{ URL(mix('/js/app.js')) }}"></script>--}}
+    {{--<link rel="stylesheet" href="{{URL(mix('css/app.css') )}}">--}}
+    {{--<title>Contacts : liste des contacts</title>--}}
 
-</head>
-<body>
+{{--</head>--}}
+{{--<body>--}}
+
+
+@section('contacts')
 <div class="container">
     <div>
         <form class="card mb-3 mt-3" method="post" action="{{$actionR}}">
@@ -127,5 +131,7 @@
         ajoutBtn.before(div);
     });
 </script>
-</body>
-</html>
+
+@endsection
+{{--</body>--}}
+{{--</html>--}}

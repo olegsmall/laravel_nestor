@@ -6,6 +6,12 @@ use App\Contact;
 use App\Telephone;
 
 class ContactsController extends Controller {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 	public function index() {
 		$contacts = Contact::all();
         $updateContact = new Contact();
@@ -40,7 +46,6 @@ class ContactsController extends Controller {
 
 	public function update( Contact $contact ) {
         $contact->updateContact();
-//        Contact::updateContact($contact);
 
         return redirect( '/contact' );
     }

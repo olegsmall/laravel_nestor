@@ -46,7 +46,6 @@ class Contact extends Model
         $contact->ctc_categorie = request('contact-category');
         $contact->ctc_uti_id_ce = 1;
 
-//        dd($contact);
         $contact->save(); // Ajout du contact
 
         $contact->ctc_id; // Recevoir id du contact ajoute dernierement
@@ -55,51 +54,20 @@ class Contact extends Model
 
     public function addTelephone()
     {
+        for ($i=0; $i < count(request('tel')); $i++) {
+            $telObj = new Telephone();
+            $telObj->tel_numero = request('tel')[$i];
+            $telObj->tel_type = request('telephone-category')[$i];
+            $telObj->tel_poste = (request('post')[$i] != null) ? request('post')[$i] : '';
+            $telObj->tel_ctc_id_ce = $this->ctc_id;
 
-//        Telephone::create([
-//            'tel_ctc_id_ce' => $this->ctc_id,
-//            'tel_numero' => $telephone,
-//            'tel_type' => $type,
-//            'tel_poste' => $post
-//        ]);
-        $telObj = new Telephone();
-        $telObj->tel_numero = request('tel');
-        $telObj->tel_type = request('telephone-category');
-        $telObj->tel_poste = request('post');
-        $telObj->tel_ctc_id_ce = $this->ctc_id;
-
-        for ()
-
-
-
-        // Print form fields as array
-        $numTel = [];
-//        var_dump($telObj->attributes);
-
-        var_dump($telObj->attributes['tel_type']);
-        foreach ($telObj->attributes['tel_numero'] as $champ) {
-            $numTel[]['tel_numero'] = $champ;
-            foreach ($numTel as $champs => $valeur) {
-                echo $champs;
-                $valeur[] = $telObj->attributes['tel_type'][$champs];
-            }
+            $telObj->save();
         }
+    }
 
 
+    public function editContact() {
 
-        var_dump($numTel);
-//        var_dump($numTel);
-
-//          Add multiple rows to table
-//        $telNum = array(
-//          array('tel_numero' => '1111', 'tel_type' => "Cellulaire", 'tel_poste' => '11', 'tel_ctc_id_ce' => 1),
-//          array('tel_numero' => '2222', 'tel_type' => "Domicile", 'tel_poste' => '22', 'tel_ctc_id_ce' => 1)
-//        );
-//        DB::table('telephones')->insert($telNum);
-
-
-//        dd($telObj->attributes);
-        $telObj->save();
     }
 
     public function deleteContact()

@@ -16,9 +16,53 @@
 
 
 <div>
-    <form class="card mb-3 mt-3" method="post" action="/contact/add">
+
+    {{--CONTACT ADD--}}
+    {{--<form class="card mb-3 mt-3" method="post" action="/contact/add">--}}
+        {{--{{ csrf_field() }}--}}
+
+        {{--<h3 class="card-body">Ajout d'un contact</h3>--}}
+        {{--<div class="form-group d-flex flex-row nowrap justify-content-between">--}}
+            {{--<label class="col-4">Prenom--}}
+                {{--<input class="form-control" type="text" name="prenom" placeholder="Prenom" value="Test">--}}
+            {{--</label>--}}
+            {{--<label class="col-4">Nom--}}
+                {{--<input class="form-control" type="text" name="nom" placeholder="Nom" value="test">--}}
+            {{--</label>--}}
+            {{--<label class="col-4">Contact categorie:--}}
+                {{--<select class="form-control"  name="contact-category">--}}
+                    {{--@foreach($contactCategories as $categorie)--}}
+                        {{--<option value="{{$categorie}}">{{$categorie}}</option>--}}
+                    {{--@endforeach--}}
+                {{--</select>--}}
+            {{--</label>--}}
+        {{--</div>--}}
+        {{--<div class="form-group d-flex flex-row nowrap justify-content-between">--}}
+            {{--<label class="col-6">Numero de téléphone:--}}
+                {{--<input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" value="2222">--}}
+            {{--</label>--}}
+            {{--<label class="col-3">Numero de post:--}}
+                {{--<input class="form-control" type="text" name="post[]" placeholder="Numero de post" value="">--}}
+            {{--</label>--}}
+            {{--<label class="col-3">Telephone categorie:--}}
+                {{--<select class="form-control"  name="telephone-category[]">--}}
+                    {{--@foreach($telephoneCategories as $categorie)--}}
+                        {{--<option value="{{$categorie}}">{{$categorie}}</option>--}}
+                    {{--@endforeach--}}
+                {{--</select>--}}
+            {{--</label>--}}
+        {{--</div>--}}
+        {{--<div class="container" id="ajouter-champ"><a href="#/">Ajouter un autre numéro</a></div>--}}
+        {{--<div class="container text-right mb-4">--}}
+            {{--<button type="submit" class="btn col-2">Soumettre</button>--}}
+        {{--</div>--}}
+    {{--</form>--}}
+
+    {{--CONTACT EDIT--}}
+    <form class="card mb-3 mt-3" method="post" action="/contact/update">
         {{ csrf_field() }}
-        <h3 class="card-body">Ajout d'un contact</h3>
+
+        <h3 class="card-body">Modifier d'un contact</h3>
         <div class="form-group d-flex flex-row nowrap justify-content-between">
             <label class="col-4">Prenom
                 <input class="form-control" type="text" name="prenom" placeholder="Prenom" value="Test">
@@ -36,21 +80,6 @@
         </div>
         <div class="form-group d-flex flex-row nowrap justify-content-between">
             <label class="col-6">Numero de téléphone:
-                <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" value="111111">
-            </label>
-            <label class="col-3">Numero de post:
-                <input class="form-control" type="text" name="post[]" placeholder="Numero de post" value="123">
-            </label>
-            <label class="col-3">Telephone categorie:
-                <select class="form-control"  name="telephone-category[]">
-                    @foreach($contactCategories as $categorie)
-                        <option value="{{$categorie}}">{{$categorie}}</option>
-                    @endforeach
-                </select>
-            </label>
-        </div>
-        <div class="form-group d-flex flex-row nowrap justify-content-between">
-            <label class="col-6">Numero de téléphone:
                 <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" value="2222">
             </label>
             <label class="col-3">Numero de post:
@@ -58,25 +87,25 @@
             </label>
             <label class="col-3">Telephone categorie:
                 <select class="form-control"  name="telephone-category[]">
-                    @foreach($contactCategories as $categorie)
+                    @foreach($telephoneCategories as $categorie)
                         <option value="{{$categorie}}">{{$categorie}}</option>
                     @endforeach
                 </select>
             </label>
         </div>
+        <div class="container" id="ajouter-champ"><a href="#/">Ajouter un autre numéro</a></div>
         <div class="container text-right mb-4">
-            <button type="submit" class="btn col-2">Soumettre
-                {{--<i class="fa fa-check" aria-hidden="true"></i>--}}
-            </button>
+            <button type="submit" class="btn col-2">Soumettre</button>
         </div>
     </form>
+
 {{--    {{$editContactId}}--}}
 
     @foreach ($contacts as $contact)
         <div class="card">
             <div class="card-body d-flex flex-row nowrap justify-content-between">
                 <div class="d-flex flex-row nowrap">
-                    <a href="" class="card-link">edit</a>
+                    <a href="contact/edit" class="card-link">edit</a>
                     <a href="contact/delete/{{$contact->ctc_id}}" class="card-link">delete</a>
                     <div class="ml-4">{{$contact->ctc_prenom}} {{$contact->ctc_nom}}</div>
                 </div>
@@ -94,6 +123,26 @@
     @endforeach
 </div>
 </div>
-
+<script>
+    let ajoutBtn =  document.getElementById('ajouter-champ');
+    ajoutBtn.addEventListener('click', function(){
+        let div = document.createElement('div');
+        div.classList = 'form-group d-flex flex-row nowrap justify-content-between';
+        div.innerHTML = '<label class="col-6">Numero de téléphone:\n' +
+            '                <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone">\n' +
+            '            </label>\n' +
+            '            <label class="col-3">Numero de post:\n' +
+            '                <input class="form-control" type="text" name="post[]" placeholder="Numero de post">\n' +
+            '            </label>\n' +
+            '            <label class="col-3">Telephone categorie:\n' +
+            '                <select class="form-control"  name="telephone-category[]">\n' +
+            '                    @foreach($telephoneCategories as $categorie)\n' +
+            '                        <option value="{{$categorie}}">{{$categorie}}</option>\n' +
+            '                    @endforeach\n' +
+            '                </select>\n' +
+            '            </label>';
+        ajoutBtn.before(div);
+    });
+</script>
 </body>
 </html>

@@ -9,7 +9,9 @@ class ContactsController extends Controller {
 	public function index() {
 		$contacts = Contact::all();
         $contactCategories = Contact::getValeursEnum('contacts', 'ctc_categorie');
-		return view( 'contact.tout', compact( 'contacts', 'contactCategories' ) );
+        $telephoneCategories = Contact::getValeursEnum('telephones', 'tel_type');
+		return view( 'contact.tout',
+            compact( 'contacts', 'contactCategories', 'telephoneCategories') );
 	}
 
 //	public function show( Contact $contact ) { //Contact::find(wildcard);
@@ -22,9 +24,21 @@ class ContactsController extends Controller {
 		return redirect( '/contact' );
 	}
 
-	public function update(Contact $contact) {
+	public function edit( $contact ) {
+        $contacts = Contact::all();
+        $contactCategories = Contact::getValeursEnum('contacts', 'ctc_categorie');
+        $telephoneCategories = Contact::getValeursEnum('telephones', 'tel_type');
+
+        return view( 'contact.tout',
+            compact( 'contacts', 'contactCategories', 'telephoneCategories') );
+    }
+
+	public function update( Contact $contact ) {
 //        $contact->ctc_nom =
 //        $contact.save();
+
+
+        return redirect( '/contact' );
     }
 
 

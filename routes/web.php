@@ -14,11 +14,8 @@ use App\Contact;
 |
 */
 
-Route::get( '/', function () {
-	$nom = "World";
-	return view( 'accueil' )->with( 'texte', $nom );
-} );
-
+Auth::routes();
+Route::get('/', 'ContactsController@index');
 Route::get( '/contact', 'ContactsController@index' );
 //Route::get( '/contact/{contact}', 'ContactsController@show' );
 Route::get( '/contact/delete/{contact}', 'ContactsController@delete')->name('delete');
@@ -85,3 +82,8 @@ Route::get( '/eloquent_Model_Examples/{task}', function ( $id ) {
 
 	return redirect( '/contact' );
 } );
+
+
+//
+//Auth::routes();
+//Route::get('/home', 'HomeController@index')->name('home');

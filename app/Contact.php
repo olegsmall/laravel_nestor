@@ -4,19 +4,15 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Telephone;
 
 class Contact extends Model
 {
-//    protected $table = 'contacts';
+
     public $timestamps = false;
     protected $primaryKey = 'ctc_id';
-    protected $attributes = [
-        'ctc_prenom' => '',
-        'ctc_nom' => '',
-        'ctc_categorie' => 'Famille',
-        'ctc_uti_id_ce' => 1
-    ];
+    protected $fillable = ['ctc_prenom', 'ctc_nom', 'ctc_categorie', 'ctc_uti_id_ce'];
 
     /**
      * Get the comments for the blog post.
@@ -25,7 +21,6 @@ class Contact extends Model
     {
         return $this->hasMany('App\Telephone', 'tel_ctc_id_ce', "ctc_id");
     }
-
 
     /**
      * Cherche les valeurs des champs enum de la BD
@@ -46,24 +41,24 @@ class Contact extends Model
     }
 
     public function addContact($arContact){
-        $this->save($arContact);
+        $this->fill($arContact);
+        $this->save();
+        $this->addTelephones();
     }
 
-    public function updateContact(){
-        $this->ctc_prenom = request('prenom');
-        $this->ctc_nom = request('nom');
-        $this->ctc_categorie = request('contact-category');
-        $this->ctc_uti_id_ce = 1;
+    public function updateContact($arContact){
 
-        $this->save(); // Ajout du contact
+
+        $this->fill($arContact); // Ajout du contact
+        $this->save();
 
         foreach ($this->telephones as $telephone) {
             $telephone->delete();
         }
-        $this->addTelephone();
+        $this->addTelephones();
     }
 
-    public function addTelephone()
+    public function addTelephones()
     {
         for ($i=0; $i < count(request('tel')); $i++) {
             $telObj = new Telephone();
@@ -77,15 +72,11 @@ class Contact extends Model
     }
 
 
-    public function editContact() {
-
-    }
-
     public function deleteContact()
     {
-        foreach ($this->telephones as $telephone) {
-            $telephone->delete();
-        }
-        $this->delete();
+            foreach ($this->telephones as $telephone) {
+                $telephone->delete();
+            }
+            $this->delete();
     }
 }

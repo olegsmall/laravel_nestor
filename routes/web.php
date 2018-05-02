@@ -16,6 +16,8 @@ use App\Contact;
 
 Auth::routes();
 Route::get('/', 'ContactsController@index');
+Route::get('/home', function (){return redirect('/');});
+
 Route::get( '/contact', 'ContactsController@index' );
 //Route::get( '/contact/{contact}', 'ContactsController@show' );
 Route::get( '/contact/delete/{contact}', 'ContactsController@delete')->name('delete');

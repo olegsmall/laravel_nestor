@@ -10,12 +10,13 @@ use App\Telephone;
 class Contact extends Model
 {
 
-    public $timestamps = false;
-    protected $primaryKey = 'ctc_id';
-    protected $fillable = ['ctc_prenom', 'ctc_nom', 'ctc_categorie', 'ctc_uti_id_ce'];
+    public $timestamps = false; // Annuler les timestamps
+    protected $primaryKey = 'ctc_id'; // Deffinition de la PK
+    protected $fillable = ['ctc_prenom', 'ctc_nom', 'ctc_categorie', 'ctc_uti_id_ce']; // Permition d'assignatin des champs specifiques
 
     /**
-     * Get the comments for the blog post.
+     * Chercher les telephones dans la BD
+     * return array donnees des contacts
      */
     public function telephones()
     {
@@ -40,23 +41,36 @@ class Contact extends Model
         return $valeurs;
     }
 
-    public function addContact($arContact){
+    /**
+     * Ajouter un contact
+     * @param array Represent les donnees du formulaire rempli par utilisateur
+     */
+
+    public function addContact($arContact)
+    {
         $this->fill($arContact);
         $this->save();
         $this->addTelephones();
     }
 
-    public function updateContact($arContact){
+    /**
+     * Ajouter un contact
+     * @param array Represent les donnees du formulaire rempli par utilisateur
+     */
 
-
-        $this->fill($arContact); // Ajout du contact
+    public function updateContact($arContact)
+    {
+        $this->fill($arContact);
         $this->save();
-
         foreach ($this->telephones as $telephone) {
             $telephone->delete();
         }
         $this->addTelephones();
     }
+
+    /**
+     * Ajouter un telephone pour un contact
+     */
 
     public function addTelephones()
     {
@@ -66,12 +80,13 @@ class Contact extends Model
             $telObj->tel_type = request('telephone-category')[$i];
             $telObj->tel_poste = (request('post')[$i] != null) ? request('post')[$i] : '';
             $telObj->tel_ctc_id_ce = $this->ctc_id;
-
             $telObj->save();
         }
     }
 
-
+    /**
+     * Supprimer un contact
+     */
     public function deleteContact()
     {
             foreach ($this->telephones as $telephone) {

@@ -1,18 +1,4 @@
 @extends('layouts.app')
-{{--<!doctype html>--}}
-{{--<html lang="fr">--}}
-{{--<head>--}}
-{{--<meta charset="utf-8">--}}
-{{--<meta http-equiv="X-UA-Compatible" content="IE=edge">--}}
-{{--<meta name="viewport" content="width=device-width, initial-scale=1">--}}
-{{--<meta name="csrf-token" content="{{ csrf_token() }}">--}}
-{{--<script src="{{ URL(mix('/js/app.js')) }}"></script>--}}
-{{--<link rel="stylesheet" href="{{URL(mix('css/app.css') )}}">--}}
-{{--<title>Contacts : liste des contacts</title>--}}
-
-{{--</head>--}}
-{{--<body>--}}
-
 
 @section('contacts')
     <div class="container">
@@ -24,15 +10,14 @@
                 <div class="form-group d-flex flex-row nowrap justify-content-between">
                     <label class="col-4">Prenom
                         <input class="form-control" type="text" name="prenom" placeholder="Prenom"
-                               value="{{$updateContact->ctc_prenom}}" required>
+                               value="{{$updateContact->ctc_prenom}}" required  pattern="[A-z]+">
                     </label>
                     <label class="col-4">Nom
                         <input class="form-control" type="text" name="nom" placeholder="Nom"
-                               value="{{$updateContact->ctc_nom}}" required>
+                               value="{{$updateContact->ctc_nom}}" required pattern="[A-z]+">
                     </label>
                     <label class="col-4">Contact categorie:
                         <select class="form-control" name="contact_category">
-                            {{--{{dd($contactCatefories)}}--}}
                             @foreach($contactCategories as $categorie)
                                 <option
                                         value="{{$categorie}}"
@@ -48,11 +33,11 @@
                     <div class="form-group d-flex flex-row nowrap justify-content-between">
                         <label class="col-6">Numero de téléphone:
                             <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone"
-                                   value="{{$telephone->tel_numero}}" required>
+                                   value="{{$telephone->tel_numero}}" required pattern="[0-9]+">
                         </label>
                         <label class="col-3">Numero de post:
                             <input class="form-control" type="text" name="post[]" placeholder="Numero de post"
-                                   value="{{$telephone->tel_poste}}">
+                                   value="{{$telephone->tel_poste}}"  pattern="[0-9]+">
                         </label>
                         <label class="col-3">Telephone categorie:
                             <select class="form-control" name="telephone-category[]">
@@ -69,10 +54,10 @@
                     <div class="form-group d-flex flex-row nowrap justify-content-between">
                         <label class="col-6">Numero de téléphone:
                             <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone"
-                                   value="" required>
+                                   value="" required   pattern="[0-9]+">
                         </label>
                         <label class="col-3">Numero de post:
-                            <input class="form-control" type="text" name="post[]" placeholder="Numero de post" value="">
+                            <input class="form-control" type="text" name="post[]" placeholder="Numero de post" value="" pattern="[0-9]+">
                         </label>
                         <label class="col-3">Telephone categorie:
                             <select class="form-control" name="telephone-category[]">
@@ -87,7 +72,7 @@
                 <div>
                     <span id="ajouter-champ" class="btn btn-link text-left">Ajouter un autre numéro</span>
                 </div>
-                {{--</div>--}}
+
                 <div class="container text-right mb-4">
                     <button type="submit" class="btn col-2">Soumettre</button>
                 </div>
@@ -97,8 +82,8 @@
                 <div class="card">
                     <div class="card-body d-flex flex-row nowrap justify-content-between">
                         <div class="d-flex flex-row nowrap">
-                            <a href="/contact/edit/{{$contact->ctc_id}}" class="card-link">edit</a>
-                            <a href="/contact/delete/{{$contact->ctc_id}}" class="card-link">delete</a>
+                            <a href="/contact/edit/{{$contact->ctc_id}}" class="card-link">Modifier</a>
+                            <a href="/contact/delete/{{$contact->ctc_id}}" class="card-link">Supprimer</a>
                             <div class="ml-4">{{$contact->ctc_prenom}} {{$contact->ctc_nom}} <span
                                         class="small font-weight-bold ml-4">({{$contact->ctc_categorie}})</span></div>
                         </div>
@@ -117,6 +102,9 @@
         </div>
     </div>
     <script>
+        /**
+         * Ajout d'un champ d'ajout d'un numero de telephone additionnel
+        */
         'use strict';
         window.addEventListener('load', () => {
             document.getElementById('ajouter-champ').addEventListener('click', addPhoneField, true);
@@ -124,10 +112,10 @@
                 let div = document.createElement('div');
                 div.classList = 'form-group d-flex flex-row nowrap justify-content-between';
                 div.innerHTML = '<label class="col-6">Numero de téléphone:\n' +
-                    '                <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone">\n' +
+                    '                <input class="form-control" type="text" name="tel[]" placeholder="Numero de téléphone" pattern="[0-9]+">\n' +
                     '            </label>\n' +
                     '            <label class="col-3">Numero de post:\n' +
-                    '                <input class="form-control" type="text" name="post[]" placeholder="Numero de post">\n' +
+                    '                <input class="form-control" type="text" name="post[]" placeholder="Numero de post"  pattern="[0-9]+">\n' +
                     '            </label>\n' +
                     '            <label class="col-3">Telephone categorie:\n' +
                     '                <select class="form-control"  name="telephone-category[]">\n' +
@@ -142,5 +130,4 @@
     </script>
 
 @endsection
-{{--</body>--}}
-{{--</html>--}}
+

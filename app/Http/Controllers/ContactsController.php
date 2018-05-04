@@ -9,34 +9,53 @@ use App\Telephone;
 
 class ContactsController extends Controller {
 
+    /**
+     * ContactsController constructor.
+     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-	public function index() {
-		$contacts = Contact::all()->where('ctc_uti_id_ce', '=', Auth::id());
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View -> /contact.tout
+     */
+
+	public function index()
+    {
+		$contacts = Contact::all()->where('ctc_uti_id_ce', '=', Auth::id()); // Contacts d'un utilisateur
         $updateContact = new Contact();
-        $actionR = '/contact/add';
-        $contactCategories = Contact::getValeursEnum('contacts', 'ctc_categorie');
-        $telephoneCategories = Contact::getValeursEnum('telephones', 'tel_type');
+        $actionR = '/contact/add'; // route d'ajout
+        $contactCategories = Contact::getValeursEnum('contacts', 'ctc_categorie'); // Categories du champ ctc_categories de la table contacts
+        $telephoneCategories = Contact::getValeursEnum('telephones', 'tel_type'); // Categories du champ tel_type de la table telephones
 		return view( 'contact.tout',
             compact( 'contacts', 'contactCategories', 'telephoneCategories', 'updateContact', 'actionR') );
 	}
 
-	public function delete( Contact $contact ) {
-        if ($contact->ctc_uti_id_ce === Auth::id()) {
+    /**
+     * @param Contact $contact - id contact
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector -> /contact
+     */
+	public function delete( Contact $contact )
+    {
+        if ($contact->ctc_uti_id_ce === Auth::id())
+        {
             $contact->deleteContact();
         }
 		return redirect( '/contact' );
 	}
 
-	public function edit( Contact $contact ) {
-        if ($contact->ctc_uti_id_ce === Auth::id()) {
+    /**
+     * @param Contact $contact
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View -> tout
+     */
+	public function edit( Contact $contact )
+    {
+        if ($contact->ctc_uti_id_ce === Auth::id())  // Verification d'utilisateur
+        {
             $contacts = Contact::all()->where('ctc_uti_id_ce', '=', Auth::id());
             $updateContact = $contact;
-//        $actionR = "{{ route('edit.contact'), ['contact' => $contact->ctc_id] }}";
-            $actionR = "/contact/update/" . $contact->ctc_id;
+            $actionR = "/contact/update/" . $contact->ctc_id; // route de modifiation
             $contactCategories = Contact::getValeursEnum('contacts', 'ctc_categorie');
             $telephoneCategories = Contact::getValeursEnum('telephones', 'tel_type');
         }
@@ -44,8 +63,15 @@ class ContactsController extends Controller {
             compact( 'contacts', 'contactCategories', 'telephoneCategories', 'updateContact', 'actionR') );
     }
 
-	public function update( Contact $contact, Request $request ) {
-        if ($contact->ctc_uti_id_ce === Auth::id()) {
+    /**
+     * @param Contact $contact - id contact
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector -> /contact
+     */
+	public function update( Contact $contact, Request $request )
+    {
+        if ($contact->ctc_uti_id_ce === Auth::id())
+        {
             $contact->updateContact($this->getContactFormData($request));
         }
 
@@ -54,17 +80,19 @@ class ContactsController extends Controller {
 
 
     /**
-     * Ajout d'un contact dans la BD
-     * @return redirection sur la page des contacts
+     * @param Contact $contact - id contact
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector -> /contact
      */
 
-    public function add(Contact $contact, Request $request) {
+    public function add(Contact $contact, Request $request)
+    {
             $contact->addContact($this->getContactFormData($request));
-
             return redirect("/contact");
     }
 
-    private function getContactFormData($request){
+    private function getContactFormData($request)
+    {
         return [
             'ctc_prenom' => $request->prenom,
             'ctc_nom' =>  $request->nom,
@@ -73,7 +101,4 @@ class ContactsController extends Controller {
         ];
     }
 
-//    private function getTelephonesFormData(){
-//
-//    }
 }
